@@ -65,7 +65,7 @@ src/json/libmapnik-json.a:
 		src/svg/svg_transform_parser.os \
 
 
-mapnik: src/json/libmapnik-json.a
+mapnik: 
 	# then install the rest with -j$(JOBS)
 	$(PYTHON) scons/scons.py -j$(JOBS) --config=cache --implicit-cache --max-drift=1
 
