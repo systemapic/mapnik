@@ -24,12 +24,9 @@
 #define MAPNIK_GEOMETRY_HPP
 
 #include <mapnik/util/variant.hpp>
-#include <mapnik/coord.hpp>
 #include <vector>
 #include <type_traits>
 #include <cstddef>
-
-
 
 namespace mapnik { namespace geometry {
 
@@ -41,22 +38,22 @@ struct point
     point(T x_, T y_)
         : x(x_), y(y_)
     {}
-    // temp - remove when geometry is templated on value_type
-    point(mapnik::coord<double, 2> const& c)
-        : x(c.x), y(c.y) {}
 
-    friend inline bool operator== (point<T> const& a, point<T> const& b)
-    {
-        return a.x == b.x && a.y == b.y;
-    }
-    friend inline bool operator!= (point<T> const& a, point <T> const& b)
-    {
-        return a.x != b.x  || a.y != b.y;
-    }
     value_type x;
     value_type y;
 };
 
+template <typename T>
+bool operator==(point<T> const& lhs, point<T> const& rhs)
+{
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+template <typename T>
+bool operator!=(point<T> const& lhs, point<T> const& rhs)
+{
+    return !(lhs == rhs);
+}
 
 template <typename T>
 struct line_string : std::vector<point<T> >
